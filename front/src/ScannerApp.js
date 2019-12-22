@@ -65,8 +65,8 @@ function ScannerApp() {
       setTipoMsj('NORMAL');
       setMensaje('Codigo ingresado 👍🏻');
       setCodigos(oldCodigos => [{ codigo, descripcion: 'PENDIENTE', mensaje: 'PENDIENTE', anulado: false, fecha: fecha, empresa: empresa }, ...oldCodigos]);
+      setTotalGrupo(oldTotal => oldTotal + 1);
       await insertCode({ variables: { data: {codigo, descripcion: 'PENDIENTE', mensaje: 'PENDIENTE', anulado: false, fecha: fecha, empresa: empresa } } });
-      setTotalGrupo(totalGrupo + 1);
       }
     }
     setCodigo('');
@@ -112,8 +112,8 @@ function ScannerApp() {
           }));
           setTipoMsj('NORMAL');
           setMensaje('Vale anulado!');
-          (async () => await updateCode({ variables: { code: codSelecto, data: {anulado: true} } }))();
           setTotalAnuladosGrupo(totalAnuladosGrupo + 1);
+          (async () => await updateCode({ variables: { code: codSelecto, data: {anulado: true} } }))();
           }}>Anular Vale</Button>
       </>,
     ANULADO: 
@@ -129,8 +129,8 @@ function ScannerApp() {
           }));
           setTipoMsj('NORMAL');
           setMensaje('Vale activado!');
-          (async () => await updateCode({ variables: { code: codSelecto, data: {anulado: false} } }))();
           setTotalAnuladosGrupo(totalAnuladosGrupo - 1);
+          (async () => await updateCode({ variables: { code: codSelecto, data: {anulado: false} } }))();
           }}>Activar Vale</Button>
       </>
   } [tipoMsj];
